@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7792643929634713389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7792643929634713385}
+  - component: {fileID: 7792643929634713384}
+  - component: {fileID: 7792643929634713387}
+  - component: {fileID: 7792643929634713386}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7792643929634713385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7792643929634713389}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5293896, y: 0.10827834, z: 4.3857694}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7792643929634713384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7792643929634713389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e040951cc977c14ebab8dac4ab1a044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time_text: {fileID: 0}
+  result_text: {fileID: 0}
+  final_text: {fileID: 0}
+  text_points: {fileID: 0}
+  button_back: {fileID: 0}
+  green_table: {fileID: 0}
+  table: {fileID: 0}
+  green_wardrobe: {fileID: 0}
+  wardrobe: {fileID: 0}
+--- !u!114 &7792643929634713387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7792643929634713389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f65b122fee8a7149b23658a364bd039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+  table: {fileID: 0}
+  extra_1: {fileID: 0}
+  green_table: {fileID: 0}
+  wardrobe: {fileID: 0}
+  extra_2: {fileID: 0}
+  extra_3: {fileID: 0}
+  green_wardrobe: {fileID: 0}
+  stain: {fileID: 0}
+  speed: 0.5
+  action_text: {fileID: 0}
+  extra_1_on: 0
+  extra_2_on: 0
+  extra_3_on: 0
+--- !u!114 &7792643929634713386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7792643929634713389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9022d6dc9084c7345b722825d5ce27b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  red_table: {fileID: 0}
+  green_table: {fileID: 0}
+  table: {fileID: 0}
+  red_wardrobe: {fileID: 0}
+  green_wardrobe: {fileID: 0}
+  wardrobe: {fileID: 0}
+  stain: {fileID: 0}

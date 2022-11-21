@@ -1,0 +1,4 @@
+repository "MeSacoCasaV3@MeSacoCasa@cloud"
+  path "/"
+    br "/main"
+    co "/main"
