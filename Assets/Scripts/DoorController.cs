@@ -14,8 +14,10 @@ public class DoorController : MonoBehaviour
     public float messyProbability;
 
     public GameObject gameController;
+    public GameObject deltaScorePrefab;
 
     GameObject ai;
+    GameObject deltaScoreObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,8 +38,16 @@ public class DoorController : MonoBehaviour
         }
         if (timer >= timeToSpawn)
         {
+            // get the people reward from the game controller
+            int peopleReward = gameController.GetComponent<GameController>().peopleReward; 
+
             // Spawn AI in the door position
             ai = Instantiate(AIPrefab, transform.position, Quaternion.identity);
+
+            deltaScoreObject = Instantiate(deltaScorePrefab, transform.position, Quaternion.identity);
+            deltaScoreObject.GetComponent<DeltaScoreController>().deltaScore = peopleReward;
+
+
             // Set the AI personality
             float random = Random.Range(0, 1f);
             Debug.Log("Random: " + random);

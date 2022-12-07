@@ -27,6 +27,19 @@ public class Patrol : MonoBehaviour
     public bool inverse = false;
     float speedDirection;
 
+    bool startedToggling = false;
+
+    void toggleColor()
+    {
+        if (GetComponent<Renderer>().material.color == Color.red)
+        {
+            GetComponent<Renderer>().material.color = Color.white;
+        }
+        else
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -58,9 +71,12 @@ public class Patrol : MonoBehaviour
                 waypoints[waypoints_aux.Length + i] = furniture[i];
             }
             throwObjectProbability = 0.5f;
-
-            // Set the color to red
-            GetComponent<Renderer>().material.color = Color.red;
+            
+            if (!startedToggling)
+            {
+                InvokeRepeating("toggleColor", 0f, 0.3f);
+                startedToggling = true;
+            }
 
         } else
         {

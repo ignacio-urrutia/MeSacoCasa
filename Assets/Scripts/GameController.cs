@@ -21,23 +21,24 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject table;
     [SerializeField] private GameObject green_wardrobe;
     [SerializeField] private GameObject wardrobe;
+
     public ProgressBar progressbar;
     public int maxHealth = 100;
     public int currentHealth;
 
-    public int trashPenalty = 3;
-    public int stainPenalty = 15;
-    public int furniturePenalty = 15;
-    public int furnitureReward = 0;
-    public int peopleReward = 15;
+    public int trashPenalty = 3;        // For each trash
+    public int stainPenalty = 10;       // For each stain
+    public int furniturePenalty = 5;    // For each furniture out of place
+    public int furnitureReward = 5;     // For each furniture in place
+    public int peopleReward = 15;       // For each person in the room
 
-    public int glassesReward = 10;
-    public int glassesPenalty = 20;
+    public int glassesReward = 10;      // For each glass in a table
+    public int glassesPenalty = 10;     // If the amount of glasses is too low
 
-    public int foodReward = 10;
-    public int foodPenalty = 0;
+    public int foodReward = 10;         // For each food in a table
+    public int foodPenalty = 0;         // If the amount of food is too low
 
-    public float timePenalty = 0.5f;
+    public float timePenalty = 0.5f;    // For each second that passes
 
     public GameObject[] furniture;
     // Start is called before the first frame update
