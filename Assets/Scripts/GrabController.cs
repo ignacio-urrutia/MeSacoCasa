@@ -14,6 +14,8 @@ public class GrabController : MonoBehaviour
 
     public string grabButton;
 
+    ScoreChange scoreChange;
+
     bool throwTrash()
     {
         if (!isGrabbing)
@@ -34,14 +36,17 @@ public class GrabController : MonoBehaviour
         shovelInside = grabbedObject.transform.Find("ShovelInside").gameObject;
         if (shovelInside.GetComponent<ShovelInsideController>().isTouchingGarbageCan())
             {
+                int trashNumber = 0;
                 // Destroy all the trash in the shovel
                 foreach (Transform child in shovelInside.transform)
                 {
                     if (child.gameObject.tag == "Trash")
                     {
                         Destroy(child.gameObject);
+                        trashNumber++;
                     }
                 }
+                scoreChange.setScoreChange(GlobalParameters.trashPenalty * trashNumber, transform.position);
                 return true;
             }
         return false;
@@ -51,7 +56,7 @@ public class GrabController : MonoBehaviour
     // Ignore collisions with the player
     void Start()
     {
-        
+        scoreChange = GetComponent<ScoreChange>();
     }
 
     // Update is called once per frame
@@ -115,6 +120,7 @@ public class GrabController : MonoBehaviour
 
                             // Destroy the grabbed object
                             Destroy(grabbedObject);
+                            scoreChange.setScoreChange(GlobalParameters.glassesReward, transform.position);
 
                             // grabbedObject.transform.position = obj.transform.position + new Vector3(randomX, randomY, 0);
                             // grabbedObject.transform.parent = obj.transform;

@@ -15,10 +15,13 @@ public class Patrol : MonoBehaviour
     public Collider2D[] objectsInRadius;
     public GameObject stainPrefab;
     public GameObject trashPrefab;
-    public float throwObjectProbability = 0.5f;
+    public float throwObjectProbability = 0.2f;
     public float cleanProbability = 0.1f;
 
     public int trashNumber = 5;
+
+    public GameObject gameController;
+    public ScoreChange scoreChange;
 
     // Personality
     public bool isCleaner = false;
@@ -28,6 +31,9 @@ public class Patrol : MonoBehaviour
     float speedDirection;
 
     bool startedToggling = false;
+
+    AudioSource liquidSound;
+    AudioSource chipsSound;
 
     void toggleColor()
     {
@@ -44,6 +50,7 @@ public class Patrol : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // gameController = GameObject.Find("GameController");
         waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         random = Random.Range(0, waypoints.Length);
         waitTime = Random.Range(minWaitTime, maxWaitTime);
@@ -51,6 +58,10 @@ public class Patrol : MonoBehaviour
         trashPrefab = Resources.Load<GameObject>("Trash");
         // ignore collitions with other AI
         Physics2D.IgnoreLayerCollision(8, 8);
+        scoreChange = GetComponent<ScoreChange>();
+
+        liquidSound = GetComponent<AudioSource>();
+        chipsSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -129,7 +140,11 @@ public class Patrol : MonoBehaviour
                         stainPrefab, 
                         obj.transform.position + new Vector3(0f, -0.5f, 0f),
                         Quaternion.identity);
+                    scoreChange.setScoreChange(-GlobalParameters.glassesPenalty - GlobalParameters.stainPenalty, transform.position);
+                    Debug.Log("Glass thrown");
+                    liquidSound.Play();
                 }
+
             }
 
             if (obj.gameObject.tag == "Food")
@@ -138,6 +153,7 @@ public class Patrol : MonoBehaviour
                 {
                     // Throw the food
                     Destroy(obj.gameObject);
+                    scoreChange.setScoreChange(-GlobalParameters.foodReward, transform.position);
                     // Spawn some trash
                     for (int i = 0; i < trashNumber; i++)
                     {
@@ -148,7 +164,10 @@ public class Patrol : MonoBehaviour
                             trashPrefab, 
                             obj.transform.position + new Vector3(randomX, randomY, 0f),
                             randomRotation);
+                        scoreChange.setScoreChange(-GlobalParameters.trashPenalty, obj.transform.position + new Vector3(randomX, randomY, 0f));
+                        chipsSound.Play();
                     }
+
                 }
             }
 
@@ -158,6 +177,7 @@ public class Patrol : MonoBehaviour
                 if (obj.gameObject.GetComponent<DoorController>().isOpen == false)
                 {
                     Destroy(gameObject);
+                    scoreChange.setScoreChange(-GlobalParameters.peopleReward, transform.position);
                 }
             }
 

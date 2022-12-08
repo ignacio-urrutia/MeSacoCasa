@@ -18,12 +18,16 @@ public class DoorController : MonoBehaviour
 
     GameObject ai;
     GameObject deltaScoreObject;
+
+    ScoreChange scoreChange;
+
     // Start is called before the first frame update
     void Start()
     {
         timeToSpawn = 1f;
         timer = 0f;
         OpenDoor();
+        scoreChange = GetComponent<ScoreChange>();
     }
 
     // Update is called once per frame
@@ -44,8 +48,11 @@ public class DoorController : MonoBehaviour
             // Spawn AI in the door position
             ai = Instantiate(AIPrefab, transform.position, Quaternion.identity);
 
-            deltaScoreObject = Instantiate(deltaScorePrefab, transform.position, Quaternion.identity);
-            deltaScoreObject.GetComponent<DeltaScoreController>().deltaScore = peopleReward;
+            // deltaScoreObject = Instantiate(deltaScorePrefab, transform.position, Quaternion.identity);
+            // deltaScoreObject.GetComponent<DeltaScoreController>().deltaScore = peopleReward;
+            scoreChange.setScoreChange(peopleReward, transform.position);
+            // Play the doorbell sound
+            GetComponent<AudioSource>().Play();
 
 
             // Set the AI personality
