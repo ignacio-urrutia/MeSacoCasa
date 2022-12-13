@@ -44,9 +44,9 @@ public class FurnitureController : MonoBehaviour
             goal.GetComponent<Renderer>().material.color = Color.red;
         }
 
-        Debug.Log("Velocity: " + GetComponent<Rigidbody2D>().velocity.magnitude);
-        Debug.Log("Position: " + transform.position);
-        Debug.Log("Delta: " + (transform.position - previousPosition).magnitude);
+        // Debug.Log("Velocity: " + GetComponent<Rigidbody2D>().velocity.magnitude);
+        // Debug.Log("Position: " + transform.position);
+        // Debug.Log("Delta: " + (transform.position - previousPosition).magnitude);
 
         previousPosition= transform.position;
     

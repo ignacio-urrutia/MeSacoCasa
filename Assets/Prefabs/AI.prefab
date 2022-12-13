@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 4961770081877680119}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.5929317, y: -2.2218862, z: -0.0022881588}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: -247365165
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6ce74696cfff9fc43824ea934be5a4bb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c1de4acdadbd40db80788798c3f1266, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d76291e43bea4fa794e8021f9f71896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints: []
+  waypoints:
+  - {fileID: 0}
   speed: 1
   random: 0
   time: 0
@@ -123,6 +124,14 @@ MonoBehaviour:
   inverse: 0
   liquidSound: {fileID: -3262204841801142439}
   chipsSound: {fileID: 8248227205815671167}
+  sprites:
+  - {fileID: 21300000, guid: 7c1de4acdadbd40db80788798c3f1266, type: 3}
+  - {fileID: 21300000, guid: 955c86f29892944369ed556755c871a5, type: 3}
+  - {fileID: 21300000, guid: 90fc2fde995844f02a24fc26c5e66f4f, type: 3}
+  - {fileID: 21300000, guid: 3ef88ae10e9ec4cd18cb791629b99221, type: 3}
+  - {fileID: 21300000, guid: d43dc67427b9142dd89baae568444e49, type: 3}
+  - {fileID: 21300000, guid: bd202f98a945041d2a777f4f3dd3355b, type: 3}
+  - {fileID: 21300000, guid: 497831717a1514b7aa63c89ba959d1d0, type: 3}
 --- !u!50 &-3410732569886075968
 Rigidbody2D:
   serializedVersion: 4
@@ -157,18 +166,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00781256, y: -0.002336204}
+  m_Offset: {x: -0.049168587, y: -0.34077024}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.47151002, y: 0.15633897}
-    oldSize: {x: 0.6666667, y: 0.6666667}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.8, y: 1.8}
     newSize: {x: 0.6666667, y: 0.6666667}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.313352, y: 0.20377958}
+  m_Size: {x: 0.57235765, y: 0.36263657}
   m_EdgeRadius: 0
 --- !u!114 &1373962823124771829
 MonoBehaviour:
