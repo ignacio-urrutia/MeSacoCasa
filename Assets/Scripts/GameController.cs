@@ -26,19 +26,19 @@ public class GameController : MonoBehaviour
     public int maxHealth = 200;
     public int currentHealth;
 
-    public int trashPenalty = GlobalParameters.trashPenalty;         // For each trash
-    public int stainPenalty = GlobalParameters.stainPenalty;        // For each stain
-    public int furniturePenalty = GlobalParameters.furniturePenalty; // For each furniture out of place
-    public int furnitureReward = GlobalParameters.furnitureReward;  // For each furniture in place
-    public int peopleReward = GlobalParameters.peopleReward;         // For each person in the room
+    int trashPenalty = GlobalParameters.trashPenalty;         // For each trash
+    int stainPenalty = GlobalParameters.stainPenalty;        // For each stain
+    int furniturePenalty = GlobalParameters.furniturePenalty; // For each furniture out of place
+    int furnitureReward = GlobalParameters.furnitureReward;  // For each furniture in place
+    int peopleReward = GlobalParameters.peopleReward;         // For each person in the room
 
-    public int glassesReward = GlobalParameters.glassesReward;      // For each glass in a table
-    public int glassesPenalty = GlobalParameters.glassesPenalty;    // If the amount of glasses is too low
+    int glassesReward = GlobalParameters.glassesReward;      // For each glass in a table
+    int glassesPenalty = GlobalParameters.glassesPenalty;    // If the amount of glasses is too low
 
-    public int foodReward = GlobalParameters.foodReward;            // For each food in a table
-    public int foodPenalty = GlobalParameters.foodPenalty;          // If the amount of food is too low
+    int foodReward = GlobalParameters.foodReward;            // For each food in a table
+    int foodPenalty = GlobalParameters.foodPenalty;          // If the amount of food is too low
 
-    public float timePenalty = GlobalParameters.timePenalty;        // For each second that passes
+    float timePenalty = GlobalParameters.timePenalty;        // For each second that passes
 
     public GameObject[] furniture;
     // Start is called before the first frame update

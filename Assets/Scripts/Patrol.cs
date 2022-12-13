@@ -32,8 +32,8 @@ public class Patrol : MonoBehaviour
 
     bool startedToggling = false;
 
-    AudioSource liquidSound;
-    AudioSource chipsSound;
+    public AudioSource liquidSound;
+    public AudioSource chipsSound;
 
     void toggleColor()
     {
@@ -45,6 +45,11 @@ public class Patrol : MonoBehaviour
         {
             GetComponent<Renderer>().material.color = Color.red;
         }
+    }
+
+    void playChipsSound()
+    {
+        chipsSound.Play();
     }
 
     // Start is called before the first frame update
@@ -59,9 +64,6 @@ public class Patrol : MonoBehaviour
         // ignore collitions with other AI
         Physics2D.IgnoreLayerCollision(8, 8);
         scoreChange = GetComponent<ScoreChange>();
-
-        liquidSound = GetComponent<AudioSource>();
-        chipsSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -165,7 +167,8 @@ public class Patrol : MonoBehaviour
                             obj.transform.position + new Vector3(randomX, randomY, 0f),
                             randomRotation);
                         scoreChange.setScoreChange(-GlobalParameters.trashPenalty, obj.transform.position + new Vector3(randomX, randomY, 0f));
-                        chipsSound.Play();
+                        // Play the sound after i*0.1 seconds
+                        Invoke("playChipsSound", i*0.1f);
                     }
 
                 }

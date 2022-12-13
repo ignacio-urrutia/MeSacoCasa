@@ -115,12 +115,14 @@ MonoBehaviour:
   trashPrefab: {fileID: 0}
   throwObjectProbability: 0.5
   cleanProbability: 0.1
-  trashNumber: 5
+  trashNumber: 4
   gameController: {fileID: 0}
   scoreChange: {fileID: 0}
   isCleaner: 0
   isMessy: 0
   inverse: 0
+  liquidSound: {fileID: -3262204841801142439}
+  chipsSound: {fileID: 8248227205815671167}
 --- !u!50 &-3410732569886075968
 Rigidbody2D:
   serializedVersion: 4

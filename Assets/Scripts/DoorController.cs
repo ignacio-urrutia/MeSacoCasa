@@ -43,7 +43,7 @@ public class DoorController : MonoBehaviour
         if (timer >= timeToSpawn)
         {
             // get the people reward from the game controller
-            int peopleReward = gameController.GetComponent<GameController>().peopleReward; 
+            int peopleReward = GlobalParameters.peopleReward;
 
             // Spawn AI in the door position
             ai = Instantiate(AIPrefab, transform.position, Quaternion.identity);
