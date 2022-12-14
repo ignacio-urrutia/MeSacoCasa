@@ -13,6 +13,8 @@ public class DoorController : MonoBehaviour
     public float timeToSpawn;
     public float messyProbability;
 
+    public float timeToOpenDoor = 15f;
+
     public GameObject gameController;
     public GameObject deltaScorePrefab;
 
@@ -68,48 +70,27 @@ public class DoorController : MonoBehaviour
             timeToSpawn = 10 - 10*(gameController.GetComponent<GameController>().initialTime - gameController.GetComponent<GameController>().time) / gameController.GetComponent<GameController>().initialTime;
             // Set the AI's 
         }
-
-        /*
-        if (isOpen == true && timer > 2f)
-        {
-            // access to the public variable extra_1_on
-            if (extraController.extra_1_on == false)
-            {
-                extraController.extra_1_on = true;
-            }
-        if (isOpen == true && timer > 4f)
-            if (extraController.extra_2_on == false)
-            {
-                extraController.extra_2_on = true;
-            }
-        if (isOpen == true && timer > 6f)
-            if (extraController.extra_3_on == false)
-            {
-                extraController.extra_3_on = true;
-            }
-        }
-        // {
-        //     timer = 0;
-        //     float x = Random.Range(-5f, 5f);
-        //     float y = Random.Range(0.5f, 1f);
-        //     Vector2 pos = new Vector2(x, y);
-        //     Quaternion rot = new Quaternion();
-        //     GameObject a = Instantiate(bot, pos, rot) as GameObject;
-        // }
-        */
     }
 
     public void OpenDoor()
-    {
+    {   
         if (isOpen == true)
         {
             isOpen = false;
             animator.SetBool("open", false);
+            Invoke("OpenOpenDoor", timeToOpenDoor);
         }
         else
         {
             isOpen = true;
             animator.SetBool("open", true);
+            CancelInvoke("OpenOpenDoor");
         }
+    }
+
+    public void OpenOpenDoor()
+    {
+        isOpen = true;
+        animator.SetBool("open", true);
     }
 }
