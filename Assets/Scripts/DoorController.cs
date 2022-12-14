@@ -38,7 +38,7 @@ public class DoorController : MonoBehaviour
     {
 
         // messyProbability = (gameController.GetComponent<GameController>().initialTime - gameController.GetComponent<GameController>().time) / gameController.GetComponent<GameController>().initialTime;
-        messyProbability = (gameController.GetComponent<GameController>().realTime) / 600;
+        messyProbability = 0.2f + (gameController.GetComponent<GameController>().realTime) / 500;
         if (isOpen == true)
         {
             timer += Time.deltaTime;

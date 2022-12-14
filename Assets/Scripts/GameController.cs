@@ -93,6 +93,7 @@ public class GameController : MonoBehaviour
         // black.SetActive(true);
         // button_back.SetActive(true);
         // final_text.enabled = true;
+        PlayerPrefs.SetInt("score", (int)realTime);
         if (score < 0) {
             // Open the game over scene
             Debug.Log("Game Over");
@@ -132,6 +133,7 @@ public class GameController : MonoBehaviour
 
         // Count the number of people in the scene and add the score
         GameObject[] people = GameObject.FindGameObjectsWithTag("Person");
+        Debug.Log("People: " + people.Length);
         score += people.Length * peopleReward;
 
         // Count the number of glasses
