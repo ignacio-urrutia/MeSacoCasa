@@ -21,23 +21,24 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject table;
     [SerializeField] private GameObject green_wardrobe;
     [SerializeField] private GameObject wardrobe;
+
     public ProgressBar progressbar;
-    public int maxHealth = 100;
+    public int maxHealth = 200;
     public int currentHealth;
 
-    public int trashPenalty = 3;
-    public int stainPenalty = 15;
-    public int furniturePenalty = 15;
-    public int furnitureReward = 0;
-    public int peopleReward = 15;
+    int trashPenalty = GlobalParameters.trashPenalty;         // For each trash
+    int stainPenalty = GlobalParameters.stainPenalty;        // For each stain
+    int furniturePenalty = GlobalParameters.furniturePenalty; // For each furniture out of place
+    int furnitureReward = GlobalParameters.furnitureReward;  // For each furniture in place
+    int peopleReward = GlobalParameters.peopleReward;         // For each person in the room
 
-    public int glassesReward = 10;
-    public int glassesPenalty = 20;
+    int glassesReward = GlobalParameters.glassesReward;      // For each glass in a table
+    int glassesPenalty = GlobalParameters.glassesPenalty;    // If the amount of glasses is too low
 
-    public int foodReward = 10;
-    public int foodPenalty = 0;
+    int foodReward = GlobalParameters.foodReward;            // For each food in a table
+    int foodPenalty = GlobalParameters.foodPenalty;          // If the amount of food is too low
 
-    public float timePenalty = 0.5f;
+    float timePenalty = GlobalParameters.timePenalty;        // For each second that passes
 
     public GameObject[] furniture;
     // Start is called before the first frame update

@@ -14,14 +14,20 @@ public class DoorController : MonoBehaviour
     public float messyProbability;
 
     public GameObject gameController;
+    public GameObject deltaScorePrefab;
 
     GameObject ai;
+    GameObject deltaScoreObject;
+
+    ScoreChange scoreChange;
+
     // Start is called before the first frame update
     void Start()
     {
         timeToSpawn = 1f;
         timer = 0f;
         OpenDoor();
+        scoreChange = GetComponent<ScoreChange>();
     }
 
     // Update is called once per frame
@@ -36,12 +42,23 @@ public class DoorController : MonoBehaviour
         }
         if (timer >= timeToSpawn)
         {
+            // get the people reward from the game controller
+            int peopleReward = GlobalParameters.peopleReward;
+
             // Spawn AI in the door position
             ai = Instantiate(AIPrefab, transform.position, Quaternion.identity);
+
+            // deltaScoreObject = Instantiate(deltaScorePrefab, transform.position, Quaternion.identity);
+            // deltaScoreObject.GetComponent<DeltaScoreController>().deltaScore = peopleReward;
+            scoreChange.setScoreChange(peopleReward, transform.position);
+            // Play the doorbell sound
+            GetComponent<AudioSource>().Play();
+
+
             // Set the AI personality
             float random = Random.Range(0, 1f);
-            Debug.Log("Random: " + random);
-            Debug.Log("Prob: " + messyProbability);
+            // Debug.Log("Random: " + random);
+            // Debug.Log("Prob: " + messyProbability);
             if (random < messyProbability)
             {
                 Debug.Log("Messy AI");
