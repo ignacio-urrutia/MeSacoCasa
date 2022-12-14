@@ -98,7 +98,7 @@ public class GameController : MonoBehaviour
             GameFinished();
         }
 
-        if (score < 30 && audioSound == Music) {
+        if (score < -2*maxHealth/3 && audioSound == Music) {
             audioSound = Abucheos;
             audio.clip = audioSound;
             audio.Play();
