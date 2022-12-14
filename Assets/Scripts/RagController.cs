@@ -7,11 +7,12 @@ public class RagController : MonoBehaviour
     public float grabDistance = 0.5f;
     public float cleanProbability = 0.1f;
     public Collider2D[] objectsInRadius;
+    ScoreChange scoreChange;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        scoreChange = GetComponent<ScoreChange>();
     }
 
     // Update is called once per frame
@@ -29,6 +30,7 @@ public class RagController : MonoBehaviour
                 {
                     // Throw the glass
                     Destroy(obj.gameObject);
+                    scoreChange.setScoreChange(GlobalParameters.stainPenalty, transform.position);
                 }
             }   
         }
