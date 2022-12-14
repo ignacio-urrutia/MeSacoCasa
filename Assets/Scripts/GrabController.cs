@@ -11,6 +11,7 @@ public class GrabController : MonoBehaviour
     public PlayerController controller;
     public Vector2 handPosition;
     public GameObject redGlassPrefab;
+    public GameObject chipsPrefab;
 
     public string grabButton;
 
@@ -131,6 +132,31 @@ public class GrabController : MonoBehaviour
                             break;
 
                         }
+                        else if (obj.gameObject.name == "table" && grabbedObject.name.Contains("GrabbableChips"))
+                        {
+                            // Put the object on the table
+                            float randomX = Random.Range(-0.2f, 0.2f);
+                            float randomY = Random.Range(-0.2f, 0.2f);
+
+                            // Create a "redGlass" prefab and put it on the table
+                            GameObject chips = Instantiate(chipsPrefab, obj.transform.position + new Vector3(randomX, randomY, 0), Quaternion.identity);
+                            chips.transform.position = obj.transform.position + new Vector3(randomX, randomY, 0);
+                            chips.transform.parent = obj.transform;
+                            chips.GetComponent<SpriteRenderer>().sortingLayerName = "Table";
+
+                            // Destroy the grabbed object
+                            Destroy(grabbedObject);
+                            scoreChange.setScoreChange(GlobalParameters.foodReward, transform.position);
+
+                            // grabbedObject.transform.position = obj.transform.position + new Vector3(randomX, randomY, 0);
+                            // grabbedObject.transform.parent = obj.transform;
+                            // // set sorting layer of the glass to table
+                            // grabbedObject.GetComponent<SpriteRenderer>().sortingLayerName = "Table";
+                            // // set the rotation of the glass to 0
+                            // grabbedObject.transform.rotation = Quaternion.identity;
+                            break;
+
+                        }
                         else
                         {
                             grabbedObject.GetComponent<SpriteRenderer>().sortingLayerName = "Default";
@@ -185,6 +211,11 @@ public class GrabController : MonoBehaviour
                 {
                     // Create a new glass in the same position as the old one
                     GameObject newGlass = Instantiate(grabbedObject, grabbedObject.transform.position, grabbedObject.transform.rotation);
+                }
+                if (grabbedObject.name.Contains("GrabbableChips"))
+                {
+                    // Create a new glass in the same position as the old one
+                    GameObject newChips = Instantiate(grabbedObject, grabbedObject.transform.position, grabbedObject.transform.rotation);
                 }
                 // grabbedObject = hit.collider.gameObject;
             }

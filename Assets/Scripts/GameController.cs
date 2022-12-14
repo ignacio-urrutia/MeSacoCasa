@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {   
     public int initialScore = -50;
-    public float initialTime = 180f;
+    public float initialTime = 1260f;
     public float time;
     public int score = 0;
+    public float realTime = 0f;
+
 
     [SerializeField] TextMeshProUGUI time_text;
     [SerializeField] TextMeshProUGUI result_text;
@@ -62,17 +64,17 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (time > 0){
-            time -= Time.deltaTime;
-            // Set it in format 00:00
-            int seconds = (int)time % 60;
-            int minutes = (int)time / 60;
-            time_text.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+        if (time >= 1440) {
+            time = time - 1440;
         }
-        else
-        {
-            GameFinished();
-        }
+
+        time += Time.deltaTime;
+        realTime += Time.deltaTime;
+        // Set it in format 00:00
+        int seconds = (int)time % 60;
+        int minutes = (int)time / 60;
+        time_text.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+ 
 
         // Update score
         score = calculateScore();
@@ -146,11 +148,11 @@ public class GameController : MonoBehaviour
         score += food.Length * foodReward;
 
         // If the quantity of food is lower than half the number of people, decrease the score
-        if (food.Length < people.Length / 2) {
-            score -= foodPenalty;
+        if (food.Length < people.Length / 4) {
+            score -= foodPenalty * (people.Length / 4 - food.Length);
         }
 
-        score -= (int) ((initialTime - time) * timePenalty);
+        score -= (int) (realTime * timePenalty);
 
         return score;
     }

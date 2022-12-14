@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class DoorController : MonoBehaviour
 {
     public bool isOpen = false;
@@ -36,8 +37,8 @@ public class DoorController : MonoBehaviour
     void Update()
     {
 
-        messyProbability = (gameController.GetComponent<GameController>().initialTime - gameController.GetComponent<GameController>().time) / gameController.GetComponent<GameController>().initialTime;
-
+        // messyProbability = (gameController.GetComponent<GameController>().initialTime - gameController.GetComponent<GameController>().time) / gameController.GetComponent<GameController>().initialTime;
+        messyProbability = (gameController.GetComponent<GameController>().realTime) / 600;
         if (isOpen == true)
         {
             timer += Time.deltaTime;
@@ -67,7 +68,8 @@ public class DoorController : MonoBehaviour
                 ai.GetComponent<Patrol>().isMessy = true;
             }
             timer = 0;
-            timeToSpawn = 10 - 10*(gameController.GetComponent<GameController>().initialTime - gameController.GetComponent<GameController>().time) / gameController.GetComponent<GameController>().initialTime;
+            // timeToSpawn = 10 - 10*(gameController.GetComponent<GameController>().initialTime - gameController.GetComponent<GameController>().time) / gameController.GetComponent<GameController>().initialTime;
+            timeToSpawn = Mathf.Log(2 + gameController.GetComponent<GameController>().realTime, 2);
             // Set the AI's 
         }
     }
