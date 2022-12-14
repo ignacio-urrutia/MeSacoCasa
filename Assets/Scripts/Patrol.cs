@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Patrol : MonoBehaviour
 {
@@ -15,22 +16,59 @@ public class Patrol : MonoBehaviour
     public Collider2D[] objectsInRadius;
     public GameObject stainPrefab;
     public GameObject trashPrefab;
-    public float throwObjectProbability = 0.5f;
+    public float throwObjectProbability = 0.2f;
     public float cleanProbability = 0.1f;
 
     public int trashNumber = 5;
+
+    public GameObject gameController;
+    public ScoreChange scoreChange;
 
     // Personality
     public bool isCleaner = false;
     public bool isMessy = false;
 
+    bool blinkingRed = false;
+    public float stopBlinkingTime = 10f; // seconds;
+
     public bool inverse = false;
     float speedDirection;
 
+    bool startedToggling = false;
+
+    public AudioSource liquidSound;
+    public AudioSource chipsSound;
+
+    public Sprite[] sprites;
+
+    void stopBlinking ()
+    {
+        blinkingRed = false;
+        CancelInvoke("toggleColor");
+        GetComponent<Renderer>().material.color = Color.white;
+    }
+
+    void toggleColor()
+    {
+        if (GetComponent<Renderer>().material.color == Color.red)
+        {
+            GetComponent<Renderer>().material.color = Color.white;
+        }
+        else
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+    }
+
+    void playChipsSound()
+    {
+        chipsSound.Play();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        // gameController = GameObject.Find("GameController");
         waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         random = Random.Range(0, waypoints.Length);
         waitTime = Random.Range(minWaitTime, maxWaitTime);
@@ -38,6 +76,27 @@ public class Patrol : MonoBehaviour
         trashPrefab = Resources.Load<GameObject>("Trash");
         // ignore collitions with other AI
         Physics2D.IgnoreLayerCollision(8, 8);
+        scoreChange = GetComponent<ScoreChange>();
+
+        // Assign a random sprite from the AI sprites folder
+        int randomSprite = Random.Range(0, sprites.Length);
+        Sprite sprite = sprites[randomSprite];
+        GetComponent<SpriteRenderer>().sprite = sprite;
+
+        // Change hue of the sprite
+        float maxColorVariation = 0.5f;
+        Color randomVariation = new Color(
+            1f - Random.Range(0, maxColorVariation),
+            1f - Random.Range(0, maxColorVariation),
+            1f - Random.Range(0, maxColorVariation),
+            1f
+        );
+        Debug.Log(randomVariation);
+        GetComponent<SpriteRenderer>().color = randomVariation;
+
+        // Stop blinking after a while
+        Invoke("stopBlinking", stopBlinkingTime);
+
     }
 
     // Update is called once per frame
@@ -58,9 +117,12 @@ public class Patrol : MonoBehaviour
                 waypoints[waypoints_aux.Length + i] = furniture[i];
             }
             throwObjectProbability = 0.5f;
-
-            // Set the color to red
-            GetComponent<Renderer>().material.color = Color.red;
+            
+            if (!startedToggling)
+            {
+                InvokeRepeating("toggleColor", 0f, 0.3f);
+                startedToggling = true;
+            }
 
         } else
         {
@@ -113,7 +175,11 @@ public class Patrol : MonoBehaviour
                         stainPrefab, 
                         obj.transform.position + new Vector3(0f, -0.5f, 0f),
                         Quaternion.identity);
+                    scoreChange.setScoreChange(-GlobalParameters.glassesPenalty - GlobalParameters.stainPenalty, transform.position);
+                    Debug.Log("Glass thrown");
+                    liquidSound.Play();
                 }
+
             }
 
             if (obj.gameObject.tag == "Food")
@@ -122,6 +188,7 @@ public class Patrol : MonoBehaviour
                 {
                     // Throw the food
                     Destroy(obj.gameObject);
+                    scoreChange.setScoreChange(-GlobalParameters.foodReward, transform.position);
                     // Spawn some trash
                     for (int i = 0; i < trashNumber; i++)
                     {
@@ -132,17 +199,23 @@ public class Patrol : MonoBehaviour
                             trashPrefab, 
                             obj.transform.position + new Vector3(randomX, randomY, 0f),
                             randomRotation);
+                        scoreChange.setScoreChange(-GlobalParameters.trashPenalty, obj.transform.position + new Vector3(randomX, randomY, 0f));
+                        // Play the sound after i*0.1 seconds
+                        Invoke("playChipsSound", i*0.01f);
                     }
+
                 }
             }
 
             if (obj.gameObject.tag == "Door")
             {
+                if (SceneManager.GetActiveScene().name != "Tutorial") {
                 // If the door is not open, delete the AI
                 if (obj.gameObject.GetComponent<DoorController>().isOpen == false)
                 {
                     Destroy(gameObject);
-                }
+                    scoreChange.setScoreChange(-GlobalParameters.peopleReward, transform.position);
+                }}
             }
 
             if (obj.gameObject.tag == "Stain")
