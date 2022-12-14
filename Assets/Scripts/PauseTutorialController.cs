@@ -12,6 +12,8 @@ public class PauseTutorialController : MonoBehaviour
     [SerializeField] GameObject table1;
     [SerializeField] GameObject table2; 
     [SerializeField] GameObject food;
+    [SerializeField] GameObject muteButton;
+    [SerializeField] GameObject unmuteButton;
     public Vector2 handPosition;
     public float grabDistance = 1.5f;
     public Animator animator;
@@ -36,7 +38,7 @@ public class PauseTutorialController : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {  
+    {
         Time.timeScale = 0f; 
         checkpoint = 0;
         ready_checkpoint = false;
@@ -94,6 +96,21 @@ public class PauseTutorialController : MonoBehaviour
                 }
             } 
         } 
+    }
+
+    
+    public void MuteMusic()
+    {
+        AudioListener.volume = 0;
+        unmuteButton.SetActive(false);
+        muteButton.SetActive(true);
+    } 
+    
+    public void UnmuteMusic() 
+    {
+        AudioListener.volume = 1;
+        unmuteButton.SetActive(true);
+        muteButton.SetActive(false);
     }
 
     public void Pause()

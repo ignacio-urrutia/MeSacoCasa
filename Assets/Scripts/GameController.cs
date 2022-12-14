@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public float time;
     public int score = 0;
 
+    AudioSource audio;
     [SerializeField] TextMeshProUGUI time_text;
     [SerializeField] TextMeshProUGUI result_text;
     [SerializeField] TextMeshProUGUI final_text;
@@ -44,6 +45,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         time = initialTime;
         time_text.text = "Tiempo: " + time;
         result_text.enabled = false;
