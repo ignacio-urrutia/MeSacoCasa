@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseTutorialController : MonoBehaviour
 {
+    [SerializeField] GameObject muteButton;
+    [SerializeField] GameObject unmuteButton;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject instructionMenu;
     [SerializeField] GameObject checkpointMenu;
@@ -101,6 +103,21 @@ public class PauseTutorialController : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
     }
+
+    public void MuteMusic()
+    {
+        AudioListener.volume = 0;
+        unmuteButton.SetActive(true);
+        muteButton.SetActive(false);
+    } 
+    
+    public void UnmuteMusic() 
+    {
+        AudioListener.volume = 1;
+        unmuteButton.SetActive(false);
+        muteButton.SetActive(true);
+    }
+
 
     public void Resume()
     {
