@@ -43,6 +43,13 @@ public class GameController : MonoBehaviour
     float timePenalty = GlobalParameters.timePenalty;        // For each second that passes
 
     public GameObject[] furniture;
+
+    AudioSource audio;
+    AudioClip audioSound;
+
+    public AudioClip Music;
+    public AudioClip Abucheos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +64,9 @@ public class GameController : MonoBehaviour
         currentHealth = maxHealth;
         progressbar.SetMaxHealth(maxHealth);
         Invoke("GameFinished", timeToLoadScene);
+
+        audio = GetComponent<AudioSource>();
+        audioSound = Music;
 
         furniture = GameObject.FindGameObjectsWithTag("Furniture");
     }
@@ -86,6 +96,17 @@ public class GameController : MonoBehaviour
         //     GameFinished();
         if (currentHealth <= -maxHealth) {
             GameFinished();
+        }
+
+        if (score < 30 && audioSound == Music) {
+            audioSound = Abucheos;
+            audio.clip = audioSound;
+            audio.Play();
+        }
+        else if (score >= 30 && audioSound == Abucheos) {
+            audioSound = Music;
+            audio.clip = audioSound;
+            audio.Play();
         }
     }
 
