@@ -27,6 +27,9 @@ public class Patrol : MonoBehaviour
     public bool isCleaner = false;
     public bool isMessy = false;
 
+    bool blinkingRed = false;
+    public float stopBlinkingTime = 10f; // seconds;
+
     public bool inverse = false;
     float speedDirection;
 
@@ -34,6 +37,15 @@ public class Patrol : MonoBehaviour
 
     public AudioSource liquidSound;
     public AudioSource chipsSound;
+
+    public Sprite[] sprites;
+
+    void stopBlinking ()
+    {
+        blinkingRed = false;
+        CancelInvoke("toggleColor");
+        GetComponent<Renderer>().material.color = Color.white;
+    }
 
     void toggleColor()
     {
@@ -64,6 +76,26 @@ public class Patrol : MonoBehaviour
         // ignore collitions with other AI
         Physics2D.IgnoreLayerCollision(8, 8);
         scoreChange = GetComponent<ScoreChange>();
+
+        // Assign a random sprite from the AI sprites folder
+        int randomSprite = Random.Range(0, sprites.Length);
+        Sprite sprite = sprites[randomSprite];
+        GetComponent<SpriteRenderer>().sprite = sprite;
+
+        // Change hue of the sprite
+        float maxColorVariation = 0.5f;
+        Color randomVariation = new Color(
+            1f - Random.Range(0, maxColorVariation),
+            1f - Random.Range(0, maxColorVariation),
+            1f - Random.Range(0, maxColorVariation),
+            1f
+        );
+        Debug.Log(randomVariation);
+        GetComponent<SpriteRenderer>().color = randomVariation;
+
+        // Stop blinking after a while
+        Invoke("stopBlinking", stopBlinkingTime);
+
     }
 
     // Update is called once per frame
@@ -168,7 +200,7 @@ public class Patrol : MonoBehaviour
                             randomRotation);
                         scoreChange.setScoreChange(-GlobalParameters.trashPenalty, obj.transform.position + new Vector3(randomX, randomY, 0f));
                         // Play the sound after i*0.1 seconds
-                        Invoke("playChipsSound", i*0.1f);
+                        Invoke("playChipsSound", i*0.01f);
                     }
 
                 }

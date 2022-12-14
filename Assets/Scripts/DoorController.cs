@@ -57,8 +57,8 @@ public class DoorController : MonoBehaviour
 
             // Set the AI personality
             float random = Random.Range(0, 1f);
-            Debug.Log("Random: " + random);
-            Debug.Log("Prob: " + messyProbability);
+            // Debug.Log("Random: " + random);
+            // Debug.Log("Prob: " + messyProbability);
             if (random < messyProbability)
             {
                 Debug.Log("Messy AI");
