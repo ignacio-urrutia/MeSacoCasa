@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Patrol : MonoBehaviour
 {
@@ -208,12 +209,13 @@ public class Patrol : MonoBehaviour
 
             if (obj.gameObject.tag == "Door")
             {
+                if (SceneManager.GetActiveScene().name != "Tutorial") {
                 // If the door is not open, delete the AI
                 if (obj.gameObject.GetComponent<DoorController>().isOpen == false)
                 {
                     Destroy(gameObject);
                     scoreChange.setScoreChange(-GlobalParameters.peopleReward, transform.position);
-                }
+                }}
             }
 
             if (obj.gameObject.tag == "Stain")

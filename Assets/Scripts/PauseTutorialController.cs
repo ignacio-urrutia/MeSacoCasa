@@ -20,6 +20,7 @@ public class PauseTutorialController : MonoBehaviour
     public float timeToSpawn;
     public GameObject trashPrefab;
     [SerializeField] GameObject next_button;
+    [SerializeField] GameObject end_button;
     [SerializeField] GameObject door; 
     [SerializeField] GameObject person;
     [SerializeField] TextMeshProUGUI trash_text;
@@ -82,10 +83,10 @@ public class PauseTutorialController : MonoBehaviour
             if (person.active) 
             {
                 // Revisar que cuando este cerca de la puerta, desaparezca.
-                if ((person.transform.position - door.transform.position).magnitude < 0.5)
+                if ((person.transform.position - door.transform.position).magnitude < 1)
                 { 
                     GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                    if (((players[0].transform.position - door.transform.position).magnitude < 0.5) || ((players[1].transform.position - door.transform.position).magnitude < 0.5))
+                    if (((players[0].transform.position - door.transform.position).magnitude < 1) || ((players[1].transform.position - door.transform.position).magnitude < 0.5))
                     {
                         person.SetActive(false);                
                         ReadyCheckpoint();
@@ -113,7 +114,7 @@ public class PauseTutorialController : MonoBehaviour
         instructionMenu.SetActive(false);
         pauseMenu.SetActive(false);
         checkpointMenu.SetActive(true);
-        instructions[checkpoint].SetActive(true);
+        instructions[0].SetActive(true);
     }
 
     public void Home()
@@ -203,17 +204,15 @@ public class PauseTutorialController : MonoBehaviour
             instruction_text.enabled = true;
             instructions[5].SetActive(false);
             checkpointMenu.SetActive(false);
-
-
-
-            // ai = Instantiate(AIPrefab, transform.position, Quaternion.identity);
-            // Set the AI personality
-            // float random = Random.Range(0, 1f);
-            // ai.GetComponent<Patrol>().isMessy = true;
-            // timer = 0;
-            // timeToSpawn = 10 - 10*(gameController.GetComponent<TutorialGameController>().initialTime - gameController.GetComponent<TutorialGameController>().time) / gameController.GetComponent<TutorialGameController>().initialTime;
             checkpoint = 10;
-        } 
+        } else if (checkpoint == 11) {
+            instruction_text.enabled = false;
+            instructions[5].SetActive(false);
+            instructions[6].SetActive(true);
+            checkpointMenu.SetActive(true);
+            next_button.SetActive(false);
+            end_button.SetActive(true);
+        }
     }
 
     public void ReadyCheckpoint() 
@@ -242,24 +241,13 @@ public class PauseTutorialController : MonoBehaviour
             instructions[checkpoint].SetActive(false);
             checkpoint = 8;
             next_button.SetActive(true);
-        // } else if (checkpoint == 9) 
-        // {
-        //     Time.timeScale = 0f;
-        //     doit_text.enabled = true;
-        //     instruction_text.text = "¡Echas a la persona que entró y cierra la puerta!";
-        //     instructions[checkpoint].SetActive(false);
-        //     checkpoint = 10;
-        //     next_button.SetActive(true);
-
         } else if (checkpoint == 10) 
         {
             Time.timeScale = 0f;
             doit_text.enabled = false;
             instruction_text.text = "¡Muy bien, echaste a la persona!";
-            instructions[checkpoint].SetActive(false);
-            checkpoint = 10;
+            checkpoint = 11;
             next_button.SetActive(true);
-
         }
     }
 }
